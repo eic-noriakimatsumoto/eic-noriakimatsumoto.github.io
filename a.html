@@ -6,16 +6,62 @@
     <title>株式会社イーイノベーション</title>
     <link rel="stylesheet" href="styles.css">
         
-        <script>
-if ("geolocation" in navigator) {
+        
+
+</head>
+<body>
+  
+  
+  <h3>位置情報</h3>
+<div id="result">取得待ち...</div>
+
+<button onclick="getLocation()">位置情報取得</button>
+
+<script>
+function getLocation() {
+
+  const result = document.getElementById("result");
+
+  if (!("geolocation" in navigator)) {
+    result.textContent = "Geolocation API がサポートされていません";
+    return;
+  }
+
+  result.textContent = "取得中...";
+
   navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      console.log("lat:", pos.coords.latitude);
-      console.log("lng:", pos.coords.longitude);
-      console.log("accuracy:", pos.coords.accuracy);
+    function(position) {
+
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      const accuracy = position.coords.accuracy;
+
+      result.innerHTML =
+        "緯度: " + lat + "<br>" +
+        "経度: " + lng + "<br>" +
+        "精度: " + accuracy + "m";
+
     },
-    (err) => {
-      console.error(err.code, err.message);
+    function(error) {
+
+      let msg = "";
+
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          msg = "位置情報の利用が拒否されました";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          msg = "位置情報を取得できません";
+          break;
+        case error.TIMEOUT:
+          msg = "位置情報取得がタイムアウトしました";
+          break;
+        default:
+          msg = "不明なエラー";
+      }
+
+      result.textContent = msg;
+
     },
     {
       enableHighAccuracy: true,
@@ -23,13 +69,15 @@ if ("geolocation" in navigator) {
       maximumAge: 0
     }
   );
-} else {
-  console.log("Geolocation API is not supported.");
 }
 </script>
 
-</head>
-<body>
+  
+  
+  
+  
+  
+  
     <header>
         <nav>
             <ul>
