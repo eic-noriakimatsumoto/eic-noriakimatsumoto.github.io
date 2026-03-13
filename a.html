@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>株式会社イーイノベーション</title>
     <link rel="stylesheet" href="styles.css">
+        
+        <script>
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      console.log("lat:", pos.coords.latitude);
+      console.log("lng:", pos.coords.longitude);
+      console.log("accuracy:", pos.coords.accuracy);
+    },
+    (err) => {
+      console.error(err.code, err.message);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
+} else {
+  console.log("Geolocation API is not supported.");
+}
+</script>
+
 </head>
 <body>
     <header>
