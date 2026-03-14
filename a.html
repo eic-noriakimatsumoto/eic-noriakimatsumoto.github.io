@@ -12,7 +12,8 @@
 <body>
   
   
-  <h3>位置情報</h3>
+
+<h3>位置情報</h3>
 <div id="result">取得待ち...</div>
 
 <button onclick="getLocation()">位置情報取得</button>
@@ -27,7 +28,7 @@ function getLocation() {
     return;
   }
 
-  result.textContent = "取得中...";
+  result.textContent = "位置情報取得中...";
 
   navigator.geolocation.getCurrentPosition(
     function(position) {
@@ -39,7 +40,7 @@ function getLocation() {
       result.innerHTML =
         "緯度: " + lat + "<br>" +
         "経度: " + lng + "<br>" +
-        "精度: " + accuracy + "m";
+        "精度(accuracy): " + accuracy + " m";
 
     },
     function(error) {
@@ -61,7 +62,6 @@ function getLocation() {
       }
 
       result.textContent = msg;
-
     },
     {
       enableHighAccuracy: true,
@@ -71,7 +71,6 @@ function getLocation() {
   );
 }
 </script>
-
   
   
   
